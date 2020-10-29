@@ -3,6 +3,9 @@ let event = null;
 
 db.ref().child("event").on("value", (snap) => {
   event = snap.val();
+  
+  if (event.active == true)
+    document.getElementById("join-btn").classList.remove("disabled");
 });
 
 callModal();
