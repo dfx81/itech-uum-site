@@ -1,6 +1,6 @@
 let db = firebase.database();
 
-let event = db.ref("event").on("value", (snap) => {
+let event = db.ref().child("event").on("value", (snap) => {
   return snap.val();
 });
 
