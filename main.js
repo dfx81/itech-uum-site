@@ -1,7 +1,9 @@
 let db = firebase.database();
+let event = null;
 
-let event = db.ref().child("event").on("value", (snap) => {
-  return snap.val();
+db.ref().child("event").on("value", (snap) => {
+  event = snap.val();
+  alert("url is :" + event.url);
 });
 
 callModal();
