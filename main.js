@@ -3,7 +3,6 @@ let event = null;
 
 db.ref().child("event").on("value", (snap) => {
   event = snap.val();
-  alert("url is :" + event.url);
 });
 
 callModal();
