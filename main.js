@@ -33,10 +33,6 @@ $("#detailModal").on("show.bs.modal", (evt) => {
 function checkStudent() {
   let student = window.localStorage.matric && window.localStorage.name && window.localStorage.email;
   
-  if (!student) {
-    alert("Warning: Please enter all details");
-  }
-  
   return student;
 }
 
