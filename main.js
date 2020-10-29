@@ -1,10 +1,10 @@
 let db = firebase.database();
 
-let event = db.ref("event/").on("value", (snap) => {
+let event = db.ref("event").on("value", (snap) => {
   return snap.val();
 });
 
-window.requestAnimationFrame(callModal);
+callModal();
 
 function callModal() {
   if (!checkStudent())
@@ -13,8 +13,6 @@ function callModal() {
       backdrop: "static",
       keyboard: false
     });
-    
-    window.requestAnimationFrame(callModal);
   }
 }
 
@@ -22,6 +20,10 @@ $("#detailModal").on("hide.bs.modal", (evt) => {
   window.localStorage.setItem("name", document.getElementById("full-name").value);
   window.localStorage.setItem("matric", document.getElementById("matric-no").value);
   window.localStorage.setItem("email", document.getElementById("email").value);
+});
+
+$("#detailModal").on("hidden.bs.modal", (evt) => {
+    callModal();
 });
 
 $("#detailModal").on("show.bs.modal", (evt) => {
