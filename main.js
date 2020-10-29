@@ -1,14 +1,22 @@
 let db = firebase.database();
 
-if (!window.localStorage.getItem("visited")) {
+let event = db.ref("event/").on("value", (snap) => {
+  return snap.val();
+});
+
+if (!checkStudent()) {
   $("#detailModal").modal("show")
 }
 
 $("#detailModal").on("hide.bs.modal", (evt) => {
-  window.localStorage.setItem("visited", "true");
   window.localStorage.setItem("name", document.getElementById("full-name").value);
   window.localStorage.setItem("matric", document.getElementById("matric-no").value);
   window.localStorage.setItem("email", document.getElementById("email").value);
+  
+  if (!checkStudent())
+  {
+    $("#detailModal").modal("show");
+  }
 });
 
 $("#detailModal").on("show.bs.modal", (evt) => {
@@ -18,9 +26,10 @@ $("#detailModal").on("show.bs.modal", (evt) => {
 });
 
 function checkStudent() {
-  let student = window.localStorage.matric;
+  let student = window.localStorage.matric && window.localStorage.name && window.localStorage.email;
+  
   if (!student) {
-    alert("Warning: No matric number entered. No merit points will be given");
+    alert("Warning: Please enter all details");
   }
   
   return student;
@@ -35,7 +44,6 @@ function redirect() {
     }
     
     db.ref("attendance/" + window.localStorage.getItem("matric")).update(userData);
+    window.location.href = event.url;
   }
-  
-  window.location.href = "https://meetingsapac14.webex.com/meet/nizam.yuseri";
 }
